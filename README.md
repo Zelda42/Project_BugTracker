@@ -11,7 +11,7 @@ A full-featured Bug Tracker built with ASP.NET Core MVC, featuring role-based au
 - Responsive UI with Bootstrap
 
 ## 🛠️ Tech Stack:
-- **Framework:** ASP.NET Core MVC (.NET 7+)
+- **Framework:** ASP.NET Core MVC (.NET 8.0.4)
 - **Database:** SQL Server with Entity Framework Core
 - **Authentication:** ASP.NET Identity with Role Management
 - **Frontend:** Razor Views + Bootstrap
