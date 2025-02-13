@@ -1,0 +1,28 @@
+﻿@model BugTracker1._2025.Models.Bug
+
+<h2>Report a New Bug</h2>
+
+<form asp-action="Create">
+    <div class="form-group">
+        <label asp-for="Title"></label>
+        <input asp-for="Title" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Priority"></label>
+        <select asp-for="Priority" class="form-control">
+            <option value="Low">Low</option>
+            <option value="Medium" selected>Medium</option>
+            <option value="High">High</option>
+            <option value="Critical">Critical</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-success">Submit</button>
+    <a class="btn btn-secondary" asp-action="Index">Back to List</a>
+</form>

@@ -1,0 +1,59 @@
+﻿@model BugTracker1._2025.Models.Bug
+
+<h2>Edit Bug</h2>
+
+<form asp-action="Edit">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="form-group">
+        <label asp-for="Title"></label>
+        <input asp-for="Title" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Status"></label>
+        <select asp-for="Status" class="form-control">
+            <option value="Open">Open</option>
+            <option value="InProgress">In Progress</option>
+            <option value="Resolved">Resolved</option>
+            <option value="Closed">Closed</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Priority"></label>
+        <select asp-for="Priority" class="form-control">
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+            <option value="Critical">Critical</option>
+        </select>
+    </div>
+
+    <!--  Admins Can Reassign Developer -->
+    @if (User.IsInRole("Admin"))
+    {
+        <div class="form-group">
+            <label for="AssignedToUserId">Assign To</label>
+            <select class="form-control" asp-for="AssignedToUserId" asp-items="ViewBag.Users">
+                <option value="">Unassigned</option>
+            </select>
+        </div>
+    }
+    else
+    {
+        <!--  Non-Admins See Assigned Developer But Cannot Change -->
+        <div class="form-group">
+            <label>Assigned To</label>
+            <input type="text" class="form-control" value="@Model.AssignedToUser?.UserName" readonly />
+        </div>
+    }
+
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+    <a class="btn btn-secondary" asp-action="Index">Cancel</a>
+</form>

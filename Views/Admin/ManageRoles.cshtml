@@ -1,0 +1,15 @@
+﻿@model BugTracker1._2025.Models.ApplicationUser
+
+<h2>Modify Role for @Model.Email</h2>
+
+<form asp-action="AssignRole">
+    <input type="hidden" name="userId" value="@Model.Id" />
+    <label>Select Role:</label>
+    <select name="role" class="form-control">
+        @foreach (var role in ViewBag.Roles)
+        {
+            <option value="@role.Name">@role.Name</option>
+        }
+    </select>
+    <button type="submit" class="btn btn-success mt-2">Update Role</button>
+</form>

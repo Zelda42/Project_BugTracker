@@ -1,0 +1,25 @@
+﻿@model IEnumerable<BugTracker1._2025.Models.ApplicationUser>
+
+<h2>Manage Users</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Email</td>
+                <td>@ViewBag.UserRoles[user.Id]</td>
+                <td>
+                    <a class="btn btn-warning btn-sm" asp-action="ManageRoles" asp-route-id="@user.Id">Modify Role</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

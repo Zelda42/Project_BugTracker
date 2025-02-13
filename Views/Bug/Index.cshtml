@@ -1,0 +1,65 @@
+﻿@model IEnumerable<BugTracker1._2025.Models.Bug>
+
+<h2>Bug List</h2>
+
+<!--  Create Bug Button (Visible to Reporters, Developers, Admins) -->
+@if (User.IsInRole("Admin") || User.IsInRole("Developer") || User.IsInRole("Reporter"))
+{
+    <a class="btn btn-success mb-3" asp-action="Create">+ Create Bug</a>
+}
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Status</th>
+            <th>Priority</th>
+            <th>Assigned To</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var bug in Model)
+        {
+            <tr>
+                <td>@bug.Title</td>
+
+                <!--  Status Dropdown for Developers & Admins -->
+                <td>
+                    @if (User.IsInRole("Developer") || User.IsInRole("Admin"))
+                    {
+                        <form asp-action="UpdateStatus" method="post">
+                            <input type="hidden" name="id" value="@bug.Id" />
+                            <select name="newStatus" class="form-select" onchange="this.form.submit()">
+                                @foreach (var status in Enum.GetValues(typeof(BugTracker1._2025.Models.Status)))
+                                {
+                                    <option value="@status" selected="@(bug.Status == (BugTracker1._2025.Models.Status)status ? "selected" : null)">
+                                        @status
+                                    </option>
+                                }
+                            </select>
+                        </form>
+                    }
+                    else
+                    {
+                        <span>@bug.Status</span>
+                    }
+                </td>
+
+                <td>@bug.Priority</td>
+                <td>@(bug.AssignedToUser?.UserName ?? "Unassigned")</td>
+
+                <td>
+                    <a class="btn btn-info btn-sm" asp-action="Details" asp-route-id="@bug.Id">Details</a>
+
+                    <!--  Admin Actions (Edit/Delete) -->
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a class="btn btn-warning btn-sm" asp-action="Edit" asp-route-id="@bug.Id">Edit</a>
+                        <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@bug.Id">Delete</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
